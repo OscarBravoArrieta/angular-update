@@ -1,0 +1,18 @@
+# Dependencias
+node_modules/
+.pnpm-store/
+.yarn/
+
+# Carpetas de compilación y salida
+dist/
+build/
+.next/
+out/
+
+# Archivos de cobertura de pruebas
+coverage/
+
+# Archivos de configuración del sistema o entorno
+.env
+.env.*
+.DS_Store
