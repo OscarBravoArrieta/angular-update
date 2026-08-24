@@ -12,7 +12,7 @@ export class Test {
   users: unknown[] = [];
   private userService = inject(TestService);
   getUser() {
-    this.userService.getUsers().subscribe((data:unknown) => (this.users = data));
+    //this.userService.getUsers().subscribe((data:unknown) => (this.users = data));
 
   }
 

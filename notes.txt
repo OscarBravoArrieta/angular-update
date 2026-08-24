@@ -1,7 +1,7 @@
  1. Configuración de eslint: ng add @angular-eslint/schematics
 
  2. Instalación de prettier: npm install prettier -D
- 
+
      Actualizar package.json
 
      "scripts": {
@@ -10,7 +10,7 @@
 
      Configurar Prettier para que ordene los archivos automáticamente al guardar:
 
-     Pasos en Visual Studio CodeAbre la paleta de comandos con Ctrl + Shift + P (Windows/Linux) o Cmd + Shift + P (Mac).Escribe Preferences: Open User Settings (JSON) y presiona Enter.Agrega las siguientes líneas dentro del objeto JSON 
+     Pasos en Visual Studio CodeAbre la paleta de comandos con Ctrl + Shift + P (Windows/Linux) o Cmd + Shift + P (Mac).Escribe Preferences: Open User Settings (JSON) y presiona Enter.Agrega las siguientes líneas dentro del objeto JSON
 
      principal:json{
         "editor.formatOnSave": true,
@@ -20,7 +20,7 @@
      "editor.formatOnSave": true: Activa el formateo automático al guardar el archivo."editor.defaultFormatter": "esbenp.prettier-vscode": Define a Prettier como el formateador predeterminado de tu editor.
 
  3. Prettier y ESLint sin conflictos en Angular
- 
+
      npm install prettier-eslint eslint-config-prettier eslint-plugin-prettier -D
      update: eslint.config.js:
      const prettierRules = require("eslint-plugin-prettier/recommended");
@@ -41,18 +41,21 @@
 
  7. Angular 20: Optimizaciones de Performance que DEBES Implementar
  https://www.youtube.com/watch?v=pOZzzdXgx-o&t=290s
- 
+
  En app.config
  - provideZoneChangeDetection()
    En aquellos componentes que escuchan señales, uno manda y uno o mas escuchan, solamente esos destinatarios se actualizan y ningún otro.
-   
+
  - provideHttpClient(withFetch())
    Permite que se pueda detectar el progreso de las peticiones. Es util cuando quieres mostrar por ejemplo una barra de progreso al momento que se hace una petición.
-   
+
  -  provideClientHydration(withEventReplay(), withNoIncrementalHydration())
-  
-	Aplica cuando se usa ssr, porque al usar ssr, todo se manda desde el servidor. Permite que el usuario pueda ir interactuando con la págino, incluso si no se ha cargado del todo. Para ello va almacenando los 
+
+	Aplica cuando se usa ssr, porque al usar ssr, todo se manda desde el servidor. Permite que el usuario pueda ir interactuando con la págino, incluso si no se ha cargado del todo. Para ello va almacenando los
 	clicks en un buffer. Al usarlo con incrementalHydration, solo se va actualizado primordialmente los elementos de la página con los que el usuario interactuó
+
+ 8. Instalación de Primeng
+    npm install primeng @primeuix/themes
 
 
 
@@ -64,9 +67,8 @@ https://medium.com/@Bilal.se/angular-integration-with-graphql-complete-guide-to-
 Angular Integration with GraphQL: Complete Guide to Setup and Usage
 https://medium.com/@erickzanetti/angular-integration-with-graphql-complete-guide-to-setup-and-usage-6f16e5657dc4
 
- 
 
 
 
 
- 
+
