@@ -1,0 +1,126 @@
+/* Contenedor principal que ocupa toda la pantalla sin scroll global */
+.layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    font-family: var(--font-family, sans-serif);
+    background-color: #f8f9fa;
+}
+
+/* 1. BARRA SUPERIOR FIJA */
+.layout-topbar {
+    height: 70px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    z-index: 100;
+}
+
+.logo {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.topbar-menu a {
+    margin-right: 1.5rem;
+    color: #4b5563;
+    text-decoration: none;
+}
+
+/* CUERPO DEL LAYOUT (Sidebar + Contenido) */
+.layout-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden; /* Evita scrolls raros a este nivel */
+}
+
+/* 2. PANEL IZQUIERDO FIJO */
+.layout-sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    padding: 2rem 1.5rem;
+    overflow-y: auto; /* Por si el menú tiene demasiados ítems */
+}
+
+.menu-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #9ca3af;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.layout-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.layout-sidebar li {
+    padding: 0.75rem 1rem;
+    color: #4b5563;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.layout-sidebar li.active {
+    background-color: #eff6ff;
+    color: #1d4ed8;
+    font-weight: 600;
+}
+
+/* CONTENEDOR DERECHO (Une la zona central y el footer) */
+.layout-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* 3. ZONA CENTRAL CON SCROLL INDEPENDIENTE */
+.layout-content {
+    flex: 1;
+    padding: 3rem;
+    overflow-y: auto; /* <-- ESTA ES LA CLAVE PARA EL SCROLL INTERNO */
+}
+
+.subtitle {
+    color: #6b7280;
+    margin-bottom: 2rem;
+}
+
+.custom-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 2rem;
+    min-height: 800px; /* Forzado solo para ver el comportamiento del scroll */
+}
+
+/* 4. PIE DE PÁGINA FIJO AL FONDO */
+.layout-footer {
+    height: 60px;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 3rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.footer-links a {
+    margin-left: 1.5rem;
+    color: #6b7280;
+    text-decoration: none;
+}
