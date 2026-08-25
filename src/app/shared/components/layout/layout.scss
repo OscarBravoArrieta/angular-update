@@ -1,0 +1,20 @@
+/* CONTENEDOR DERECHO (Une la zona central y el footer) */
+.layout-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* 3. ZONA CENTRAL CON SCROLL INDEPENDIENTE */
+.layout-content {
+    flex: 1;
+    padding: 3rem;
+    overflow-y: auto; /* <-- ESTA ES LA CLAVE PARA EL SCROLL INTERNO */
+}
+
+.layout-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden; /* Evita scrolls raros a este nivel */
+}
