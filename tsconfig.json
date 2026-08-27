@@ -17,7 +17,9 @@
             "@/*": ["./src/*"],
             "@admin/*": ["./src/app/admin/*"],
             "@environments/*": ["./src/environments/*"],
-            "@shared/*": ["./src/app/shared/*"]
+            "@shared/*": ["./src/app/shared/*"],
+            "@core/*": ["./src/app/core/*"],
+            "@auth/*": ["./src/app/auth/*"]
         }
     },
 

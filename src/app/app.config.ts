@@ -50,7 +50,7 @@ export const appConfig: ApplicationConfig = {
         provideApollo(() => {
             const httpLink = inject(HttpLink);
             return {
-                link: httpLink.create({ uri: `${environment.platziApi}/api/graphql` }),
+                link: httpLink.create({ uri: environment.platziGraphqlApi }),
                 cache: new InMemoryCache({
                     typePolicies: {
                         Query: { fields: {} },

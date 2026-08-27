@@ -1,1 +1,111 @@
-<p>login works!</p>
+<div class="login-page">
+    <!-- <div class="login-page__hero">
+        <div class="login-page__hero-noise"></div>
+
+        <div class="login-page__brand">
+            <span class="login-page__brand-mark"></span>
+            <span class="login-page__brand-name">ATLAS</span>
+        </div>
+
+        <div class="login-page__hero-copy">
+            <h2 class="login-page__hero-heading">Tu infraestructura,<br />siempre disponible.</h2>
+            <span class="login-page__hero-illustration-label">ILUSTRACIÓN</span>
+        </div>
+    </div> -->
+
+    <div class="login-page__panel">
+        <form class="login-page__form" novalidate (submit)="onSubmit($event)">
+            <div class="login-page__form-header">
+                <h1 class="login-page__title">Login</h1>
+                <p class="login-page__subtitle">Ingresa tus datos para continuar.</p>
+            </div>
+
+            <div class="login-page__social">
+                <button type="button" class="login-page__social-button">
+                    Continuar con Google
+                </button>
+                <button type="button" class="login-page__social-button">Continuar con Apple</button>
+            </div>
+
+            <div class="login-page__divider" role="separator">
+                <span class="login-page__divider-line"></span>
+                <span>o</span>
+                <span class="login-page__divider-line"></span>
+            </div>
+
+            <div class="login-page__fields">
+                <div class="login-page__field">
+                    <label class="sr-only" for="login-email">Email</label>
+                    <input
+                        id="login-email"
+                        type="email"
+                        placeholder="Email"
+                        class="login-page__input"
+                        autocomplete="email"
+                        [formField]="loginForm.email"
+                    />
+                    @if (loginForm.email().touched() && loginForm.email().invalid()) {
+                        <p class="login-page__field-error" role="alert">
+                            {{ loginForm.email().errors()[0]?.message }}
+                        </p>
+                    }
+                </div>
+
+                <div class="login-page__field">
+                    <label class="sr-only" for="login-password">Contraseña</label>
+                    <div class="login-page__password">
+                        <input
+                            id="login-password"
+                            [type]="showPassword() ? 'text' : 'password'"
+                            placeholder="Contraseña"
+                            class="login-page__input login-page__input--password"
+                            autocomplete="current-password"
+                            [formField]="loginForm.password"
+                        />
+                        <button
+                            type="button"
+                            class="login-page__password-toggle"
+                            (click)="togglePasswordVisibility()"
+                            [attr.aria-pressed]="showPassword()"
+                            [attr.aria-label]="
+                                showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'
+                            "
+                        >
+                            {{ showPassword() ? 'Ocultar' : 'Mostrar' }}
+                        </button>
+                    </div>
+                    @if (loginForm.password().touched() && loginForm.password().invalid()) {
+                        <p class="login-page__field-error" role="alert">
+                            {{ loginForm.password().errors()[0]?.message }}
+                        </p>
+                    }
+                </div>
+            </div>
+
+            <div class="login-page__row">
+                @if (showRemember()) {
+                    <label class="login-page__remember">
+                        <input type="checkbox" [formField]="loginForm.remember" />
+                        Recordarme
+                    </label>
+                }
+                <a href="#" class="login-page__link">Olvidé mi contraseña</a>
+            </div>
+
+            @if (submitError()) {
+                <p class="login-page__form-error" role="alert">{{ submitError() }}</p>
+            }
+
+            <div class="login-page__actions">
+                <button type="submit" class="login-page__submit" [disabled]="submitting()">
+                    {{ submitting() ? 'Ingresando…' : 'Entrar' }}
+                </button>
+                <p class="login-page__signup">
+                    ¿Aún no tienes cuenta? <a href="#">Créala ahora</a>
+                </p>
+            </div>
+
+            <div class="login-page__copyright">©2026 Atlas</div>
+        </form>
+    </div>
+</div>

@@ -11,6 +11,10 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
+                loadChildren: () => import('@auth/auth.routes'),
+            },
+            {
+                path: '',
                 loadChildren: () => import('@admin/admin.routes'),
             },
             {
