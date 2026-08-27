@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { PrimeNgModule } from '@shared/imports/primeng';
 
 @Component({
     selector: 'app-left-panel',
-    imports: [RouterLink],
+    imports: [RouterLink, RouterLinkActive, PrimeNgModule],
     templateUrl: './left-panel.html',
     styleUrl: './left-panel.scss',
 })

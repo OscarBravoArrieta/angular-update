@@ -8,7 +8,7 @@ import {
 import { provideApollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withExperimentalAutoCleanupInjectors } from '@angular/router';
 import { environment } from '@environments/environment.development';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
@@ -32,6 +32,7 @@ export const appConfig: ApplicationConfig = {
         provideHttpClient(withFetch()),
         provideZonelessChangeDetection(),
         provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
+        provideRouter(routes, withExperimentalAutoCleanupInjectors()),
         providePrimeNG({
             theme: {
                 preset: Aura,

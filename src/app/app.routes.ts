@@ -18,10 +18,15 @@ export const routes: Routes = [
                 title: 'No autorizado',
                 component: Unauthorized,
             },
+            {
+                path: 'unauthorized',
+                title: 'No autorizado',
+                component: Unauthorized,
+            },
+            {
+                path: '**',
+                component: NotFound,
+            },
         ],
-    },
-    {
-        path: '**',
-        component: NotFound,
     },
 ];
