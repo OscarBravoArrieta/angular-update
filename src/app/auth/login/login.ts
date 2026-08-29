@@ -1,8 +1,17 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormField, email, form, minLength, required, schema, submit } from '@angular/forms/signals';
+import {
+    FormField,
+    email,
+    form,
+    minLength,
+    required,
+    schema,
+    submit,
+} from '@angular/forms/signals';
 import { firstValueFrom } from 'rxjs';
 import { Auth } from '@core/services/auth';
+import { CombinedProtocolErrors } from '@apollo/client';
 
 interface LoginModel {
     email: string;
@@ -47,7 +56,7 @@ export default class Login {
         const attempted = await submit(this.loginForm, async (field) => {
             this.submitting.set(true);
             try {
-                await firstValueFrom(this.auth.login(field().value()));
+                const token = await firstValueFrom(this.auth.login(field().value()));
             } catch {
                 this.submitError.set('Correo o contraseña incorrectos. Intenta nuevamente.');
             } finally {
