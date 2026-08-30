@@ -11,17 +11,17 @@ import { Auth } from '@core/services/auth';
 export class App {
     protected readonly title = signal('angular-update');
     private auth = inject(Auth);
-    sidebarVisible: boolean = false;
+    sidebarVisible = false;
 
-    ngOnInit() {
-        // Si hay un token guardado, disparamos la carga del perfil
-        this.auth.getProfile().subscribe({
-            error: (err) => console.error('Error al cargar perfil inicial', err),
-        });
-    }
+    // ngOnInit() {
+    //     // Si hay un token guardado, disparamos la carga del perfil
+    //     this.auth.getProfile().subscribe({
+    //         error: (err) => console.error('Error al cargar perfil inicial', err),
+    //     });
+    // }
 
-    private profileSubscription = this.auth.getProfile().subscribe({
-        next: (profile) => console.log('Perfil global inicializado con éxito'),
-        error: (err) => console.error('Error al cargar perfil inicial', err),
-    });
+    // private profileSubscription = this.auth.getProfile().subscribe({
+    //     next: (profile) => console.log('Perfil global inicializado con éxito'),
+    //     error: (err) => console.error('Error al cargar perfil inicial', err),
+    // });
 }

@@ -1,9 +1,9 @@
-import { Injector, Service, computed, inject, signal } from '@angular/core';
+import { Injector, Service, inject, signal } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
-import type { Token, UserProfile, UserToLog } from '@core/models/users.model';
-import { toObservable } from '@angular/core/rxjs-interop';
+import { map} from 'rxjs/operators';
+import { Token, UserProfile, UserToLog } from '@core/models/users.model';
+import { TokenTreatment } from '@core/services/token-treatment';
 
 const LOGIN_MUTATION = gql`
     mutation Login($email: String!, $password: String!) {
@@ -36,6 +36,7 @@ const REFRESH_TOKEN_MUTATION = gql`
 @Service()
 export class Auth {
     private apollo = inject(Apollo);
+    private tokenTreatment = inject(TokenTreatment)
     readonly tokens = signal<Token | null>(null);
 
     // 1. Inyectamos el Injector de Angular en el servicio
@@ -54,47 +55,27 @@ export class Auth {
                 map(({ data }) => {
                     const token = data!.login;
                     this.tokens.set(token);
-                    //this.getProfile();
-
+                    this.getProfile();
+                    this.tokenTreatment.saveToken(token)
                     return token;
                 }),
             );
     }
 
     getProfile(): Observable<UserProfile> {
-        // 2. Le pasamos explícitamente el injector a toObservable
-        return toObservable(this.tokens, { injector: this.injector }).pipe(
-            switchMap((tokens) => {
-                return this.apollo.watchQuery<{ myProfile: UserProfile }>({
-                    query: MY_PROFILE_QUERY,
-                    context: {
-                        headers: { Authorization: `Bearer ${tokens?.access_token}` },
+        const access_token: string = this.tokenTreatment.getToken()?.access_token
+        return this.apollo
+            .watchQuery<{ myProfile: UserProfile }>({
+                query: MY_PROFILE_QUERY,
+                context: {
+                    headers: {
+                        Authorization: `Bearer ${access_token}`,
                     },
-                }).valueChanges;
-            }),
-            map((result) => {
-                if (!result.data?.myProfile) {
-                    throw new Error('No se pudo obtener el perfil de usuario');
-                }
-                return result.data.myProfile as UserProfile;
-            }),
-            tap((profile) => this.#userProfileState.set(profile)),
-        );
+                },
+            })
+            .valueChanges.pipe(map(({ data }) => (data!.myProfile as UserProfile)));
+            // .valueChanges.pipe(map(({ data }) => data!.myProfile as UserProfile));
     }
-
-    // getProfile(): Observable<UserProfile> {
-    //     //console.log('Token:...', this.tokens()?.access_token);
-    //     return this.apollo
-    //         .watchQuery<{ myProfile: UserProfile }>({
-    //             query: MY_PROFILE_QUERY,
-    //             context: {
-    //                 headers: {
-    //                     Authorization: `Bearer ${this.tokens()?.access_token}`,
-    //                 },
-    //             },
-    //         })
-    //         .valueChanges.pipe(map(({ data }) => data!.myProfile as UserProfile));
-    // }
 
     refreshToken(): Observable<Token> {
         return this.apollo

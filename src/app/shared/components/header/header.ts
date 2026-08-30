@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { PrimeNgModule } from '@shared/imports/primeng';
 import { ImageModule } from 'primeng/image';
 import { MenuItem } from 'primeng/api';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { Auth } from '@/app/core/services/auth';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -13,14 +13,16 @@ import { toSignal } from '@angular/core/rxjs-interop';
     templateUrl: './header.html',
     styleUrl: './header.scss',
 })
-export class Header {
+export class Header implements OnInit {
     readonly router = inject(Router);
     auth = inject(Auth);
     items: MenuItem[] | undefined;
 
-    public userProfile = toSignal(this.auth.getProfile());
+    //public userProfile = toSignal(this.auth.getProfile());
 
     ngOnInit() {
+
+         //console.log(this.userProfile());
         this.items = [
             {
                 label: 'My Account',
@@ -44,7 +46,7 @@ export class Header {
     }
 
     callLogin() {
-        console.log('Login');
+
         this.router.navigate(['auth-login']);
     }
 }
