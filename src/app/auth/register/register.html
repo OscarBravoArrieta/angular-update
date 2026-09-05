@@ -1,1 +1,142 @@
-<p>register works!</p>
+@if (successMessage(); as message) {
+    <p class="register-form__success" role="status">{{ message }}</p>
+} @else {
+    <form class="register-form" novalidate (submit)="onSubmit($event)">
+        <p class="register-form__subtitle">Completa tus datos para crear tu cuenta.</p>
+
+        <div class="register-form__row">
+            <div class="register-form__field">
+                <label class="register-form__label" for="register-first-name">Nombre</label>
+                <input
+                    id="register-first-name"
+                    type="text"
+                    pInputText
+                    fluid
+                    autocomplete="given-name"
+                    [formField]="registerForm.firstName"
+                />
+                @if (registerForm.firstName().touched() && registerForm.firstName().invalid()) {
+                    <small class="register-form__field-error" role="alert">
+                        {{ registerForm.firstName().errors()[0]?.message }}
+                    </small>
+                }
+            </div>
+
+            <div class="register-form__field">
+                <label class="register-form__label" for="register-last-name">Apellido</label>
+                <input
+                    id="register-last-name"
+                    type="text"
+                    pInputText
+                    fluid
+                    autocomplete="family-name"
+                    [formField]="registerForm.lastName"
+                />
+                @if (registerForm.lastName().touched() && registerForm.lastName().invalid()) {
+                    <small class="register-form__field-error" role="alert">
+                        {{ registerForm.lastName().errors()[0]?.message }}
+                    </small>
+                }
+            </div>
+        </div>
+
+        <div class="register-form__field">
+            <label class="register-form__label" for="register-email">Email</label>
+            <input
+                id="register-email"
+                type="email"
+                pInputText
+                fluid
+                autocomplete="email"
+                [formField]="registerForm.email"
+            />
+            @if (registerForm.email().touched() && registerForm.email().invalid()) {
+                <small class="register-form__field-error" role="alert">
+                    {{ registerForm.email().errors()[0]?.message }}
+                </small>
+            }
+        </div>
+
+        <div class="register-form__field">
+            <label class="register-form__label" for="register-password">Contraseña</label>
+            <div class="register-form__password">
+                <input
+                    id="register-password"
+                    [type]="showPassword() ? 'text' : 'password'"
+                    pInputText
+                    fluid
+                    autocomplete="new-password"
+                    [formField]="registerForm.password"
+                />
+                <button
+                    type="button"
+                    pButton
+                    text
+                    size="small"
+                    class="register-form__password-toggle"
+                    (click)="togglePasswordVisibility()"
+                    [attr.aria-pressed]="showPassword()"
+                    [attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+                >
+                    {{ showPassword() ? 'Ocultar' : 'Mostrar' }}
+                </button>
+            </div>
+            @if (registerForm.password().touched() && registerForm.password().invalid()) {
+                <small class="register-form__field-error" role="alert">
+                    {{ registerForm.password().errors()[0]?.message }}
+                </small>
+            }
+        </div>
+
+        <div class="register-form__field">
+            <label class="register-form__label" for="register-confirm-password">
+                Confirmar contraseña
+            </label>
+            <div class="register-form__password">
+                <input
+                    id="register-confirm-password"
+                    [type]="showConfirmPassword() ? 'text' : 'password'"
+                    pInputText
+                    fluid
+                    autocomplete="new-password"
+                    [formField]="registerForm.confirmPassword"
+                />
+                <button
+                    type="button"
+                    pButton
+                    text
+                    size="small"
+                    class="register-form__password-toggle"
+                    (click)="toggleConfirmPasswordVisibility()"
+                    [attr.aria-pressed]="showConfirmPassword()"
+                    [attr.aria-label]="
+                        showConfirmPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'
+                    "
+                >
+                    {{ showConfirmPassword() ? 'Ocultar' : 'Mostrar' }}
+                </button>
+            </div>
+            @if (
+                registerForm.confirmPassword().touched() &&
+                registerForm.confirmPassword().invalid()
+            ) {
+                <small class="register-form__field-error" role="alert">
+                    {{ registerForm.confirmPassword().errors()[0]?.message }}
+                </small>
+            }
+        </div>
+
+        @if (submitError()) {
+            <p class="register-form__form-error" role="alert">{{ submitError() }}</p>
+        }
+
+        <div class="register-form__actions">
+            <button type="submit" pButton fluid [loading]="submitting()" [disabled]="submitting()">
+                {{ submitting() ? 'Creando cuenta…' : 'Crear cuenta' }}
+            </button>
+            <button type="button" pButton text severity="secondary" fluid (click)="closeDialog()">
+                Cancelar
+            </button>
+        </div>
+    </form>
+}

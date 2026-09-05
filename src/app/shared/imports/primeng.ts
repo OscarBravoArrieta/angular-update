@@ -20,6 +20,7 @@ import { SpeedDialModule } from 'primeng/speeddial';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { MenuModule } from 'primeng/menu';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 @NgModule({
     imports: [
@@ -42,6 +43,7 @@ import { MenuModule } from 'primeng/menu';
         BadgeModule,
         OverlayBadgeModule,
         MenuModule,
+        DynamicDialogModule,
     ],
     exports: [
         InputTextModule,
@@ -62,6 +64,7 @@ import { MenuModule } from 'primeng/menu';
         BadgeModule,
         OverlayBadgeModule,
         MenuModule,
+        DynamicDialogModule,
     ],
 })
 export class PrimeNgModule {}

@@ -11,7 +11,7 @@ import {
 } from '@angular/forms/signals';
 import { firstValueFrom } from 'rxjs';
 import { Auth } from '@core/services/auth';
-import { CombinedProtocolErrors } from '@apollo/client';
+import { DialogService } from 'primeng/dynamicdialog';
 
 interface LoginModel {
     email: string;
@@ -35,6 +35,7 @@ const loginSchema = schema<LoginModel>((path) => {
 export default class Login {
     private readonly auth = inject(Auth);
     private readonly router = inject(Router);
+    private readonly dialogService = inject(DialogService);
 
     readonly showRemember = input<boolean>(true);
 
@@ -49,6 +50,18 @@ export default class Login {
         this.showPassword.update((show) => !show);
     }
 
+    protected async openRegisterDialog(event: Event): Promise<void> {
+        event.preventDefault();
+        const { default: Register } = await import('../register/register');
+        this.dialogService.open(Register, {
+            header: 'Crear cuenta',
+            modal: true,
+            closable: false,
+            draggable: true,
+            width: '28rem',
+        });
+    }
+
     protected async onSubmit(event: Event): Promise<void> {
         event.preventDefault();
         this.submitError.set(null);
@@ -56,9 +69,13 @@ export default class Login {
         const attempted = await submit(this.loginForm, async (field) => {
             this.submitting.set(true);
             try {
-                const token = await firstValueFrom(this.auth.login(field().value()));
-            } catch {
-                this.submitError.set('Correo o contraseña incorrectos. Intenta nuevamente.');
+                await firstValueFrom(this.auth.login(field().value()));
+            } catch (error) {
+                this.submitError.set(
+                    error instanceof Error
+                        ? error.message
+                        : 'Correo o contraseña incorrectos. Intenta nuevamente.',
+                );
             } finally {
                 this.submitting.set(false);
             }

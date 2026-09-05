@@ -29,8 +29,16 @@
 
  export interface Token {
 
-     access_token:  string
-     refresh_token:  string
+     token: string
+     refreshToken: string
+
+ }
+
+ export interface AccountError {
+
+     field: string | null
+     message: string | null
+     code: string
 
  }
 
@@ -39,6 +47,21 @@
      id: string
      name: string
      avatar: string
+
+ }
+
+ export interface UserToRegister {
+
+     firstName: string
+     lastName: string
+     email: string
+     password: string
+
+ }
+
+ export interface RegisterResult {
+
+     requiresConfirmation: boolean | null
 
  }
 

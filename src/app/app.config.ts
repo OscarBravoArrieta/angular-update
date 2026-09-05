@@ -2,7 +2,7 @@ import {
     ApplicationConfig,
     inject,
     provideBrowserGlobalErrorListeners,
-    provideZoneChangeDetection,
+    // provideZoneChangeDetection,
     provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideApollo } from 'apollo-angular';
@@ -11,6 +11,7 @@ import { InMemoryCache } from '@apollo/client/core';
 import { provideRouter, withExperimentalAutoCleanupInjectors } from '@angular/router';
 import { environment } from '@environments/environment.development';
 import { providePrimeNG } from 'primeng/config';
+import { DialogService } from 'primeng/dynamicdialog';
 import Aura from '@primeuix/themes/aura';
 
 //import { graphqlProvider } from './graphql.provider';
@@ -27,8 +28,9 @@ export const appConfig: ApplicationConfig = {
     providers: [
         provideBrowserGlobalErrorListeners(),
         provideRouter(routes),
+        DialogService,
         provideClientHydration(),
-        provideZoneChangeDetection(),
+        // provideZoneChangeDetection(),
         provideHttpClient(withFetch()),
         provideZonelessChangeDetection(),
         provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
@@ -50,7 +52,7 @@ export const appConfig: ApplicationConfig = {
         provideApollo(() => {
             const httpLink = inject(HttpLink);
             return {
-                link: httpLink.create({ uri: environment.platziGraphqlApi }),
+                link: httpLink.create({ uri: environment.saleorApiUrl }),
                 cache: new InMemoryCache({
                     typePolicies: {
                         Query: { fields: {} },

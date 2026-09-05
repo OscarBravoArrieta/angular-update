@@ -24,7 +24,7 @@
                 <button type="button" class="login-page__social-button">
                     Continuar con Google
                 </button>
-                <button type="button" class="login-page__social-button">Continuar con Apple</button>
+                <!-- <button type="button" class="login-page__social-button">Continuar con Apple</button> -->
             </div>
 
             <div class="login-page__divider" role="separator">
@@ -101,7 +101,8 @@
                     {{ submitting() ? 'Ingresando…' : 'Entrar' }}
                 </button>
                 <p class="login-page__signup">
-                    ¿Aún no tienes cuenta? <a href="#">Créala ahora</a>
+                    ¿Aún no tienes cuenta?
+                    <a href="#" (click)="openRegisterDialog($event)">Créala ahora</a>
                 </p>
             </div>
 
